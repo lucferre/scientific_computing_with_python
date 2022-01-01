@@ -32,7 +32,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         balls_drawn = hat_copy.draw(num_balls_drawn)
         match = True
         for key, value in expected_balls.items():
-            # if there are less balls of each color than indicated in expected_balls,
+            # if there are less balls of at least one color than indicated in expected_balls,
             # turn match to False and continue to next experiment
             if balls_drawn.count(key) < value:
                 match = False
