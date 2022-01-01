@@ -11,8 +11,7 @@ class Hat:
             for i in range(n):
                 ball_drawn = random.choice(self.contents)
                 self.contents.remove(ball_drawn)
-                
-            return random.sample(self.contents, k=n)
+        return balls_drawn
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     '''Performs a probability experiment.
@@ -28,8 +27,9 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     '''
     m = 0
     for i in range(num_experiments):
+        hat_copy = copy.deepcopy(hat)
         # For each experiment, draw out a sample of n balls from the hat
-        balls_drawn = random.sample(hat.contents, k=num_balls_drawn)
+        balls_drawn = hat_copy.draw(num_balls_drawn)
         match = True
         for key, value in expected_balls.items():
             # if there are less balls of each color than indicated in expected_balls,
@@ -40,9 +40,3 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         if match:
             m += 1
     return m/num_experiments
-
-
-hat = Hat(blue=3,red=2,green=6)
-probability = experiment(hat=hat, expected_balls={"blue":2,"green":1}, num_balls_drawn=4, num_experiments=1000)
-
-print(probability)
